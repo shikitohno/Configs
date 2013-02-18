@@ -1,0 +1,21 @@
+Config { font = "-terminus-*-*-*-*-10-*-*-*-*-*-*-*"
+       , bgColor = "#000000"
+       , fgColor = "#C9A34E"
+       , border = NoBorder
+       , borderColor = "#000000"
+       , position = Top
+       , lowerOnStart = True
+       , persistent = True
+       , commands = [ Run Weather "KLGA" ["-t","<station>: <tempC>°C rh: <rh>% dew <dewPoint> pressure: <pressure>hPa","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 600
+                    , Run Uptime [] 10
+		    , Run MultiCpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+		    , Run Swap ["-t","Swap: <usedratio>%"] 10
+                    , Run Date "%a %b %_d %H:%M" "date" 10
+		    , Run MPD ["-t","<artist> - <title> (<album>) <track>/<plength> <bar> (<lapsed>/<length>) <statei> ","--","-P",">>","-Z","|","-S","><"] 10
+		    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %mpd% | %uptime% | %multicpu% | %memory% | %swap% |<fc=#ee9a00>%date%</fc> | %KLGA%"
+       }
